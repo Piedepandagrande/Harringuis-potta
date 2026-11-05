@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff8f1">
+  <meta name="description" content="Explora los modos musicales, la armonía cuartal y un laboratorio de composición experimental.">
+  <title>Modos y laboratorio musical</title>
+  <style>
+
+    :root { color-scheme: light; --ink:#342d31; --muted:#71676b; --cream:#fff8f1; --paper:#fffdfb; --coral:#e87962; --coral-dark:#a94737; --line:#eee3dc; font-family:"Segoe UI","Trebuchet MS",sans-serif; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--cream); color:var(--ink); line-height:1.65; }
+    a { color:inherit; }
+    .wrap { width:min(1120px,calc(100% - 40px)); margin-inline:auto; }
+    .topbar { padding:18px 0; }
+    .brand { display:inline-flex; align-items:center; gap:10px; font-weight:800; text-decoration:none; }
+    .brand-mark { display:grid; width:40px; height:40px; place-items:center; border-radius:14px; background:var(--coral); }
+    h1,h2,h3,p { margin-top:0; }
+    h1,h2,.mode-group h3,.music-lab h3 { font-family:Georgia,"Times New Roman",serif; font-weight:500; letter-spacing:-.04em; line-height:1.12; }
+    h1 { margin:20px auto 10px; text-align:center; font-size:clamp(2rem,5vw,3.2rem); }
+    .section { padding:42px 0; }
+    .section-heading { max-width:760px; margin:0 auto 28px; text-align:center; }
+    .section-heading .eyebrow { color:var(--coral-dark); font-size:.78rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+    h2 { font-size:clamp(2rem,4vw,3rem); }
+    .composer-intro { max-width:760px; margin:0 auto 22px; color:var(--muted); text-align:center; }
+    .composer-form { display:flex; gap:10px; max-width:700px; margin:0 auto 12px; }
+    .composer-form input { flex:1; min-width:0; min-height:48px; padding:10px 14px; border:1px solid #ddd3e8; border-radius:12px; font:inherit; }
+    .composer-form button { padding:11px 18px; border:0; border-radius:999px; background:var(--ink); color:white; font:inherit; font-weight:750; cursor:pointer; }
+    .composer-form button:hover { background:var(--coral-dark); }
+    .composer-status { min-height:24px; color:var(--coral-dark); text-align:center; font-size:.88rem; }
+    .composition-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:22px; }
+    .composition-card { padding:22px; border:1px solid #e6deef; border-radius:20px; background:white; }
+    .composition-card .concept { color:#675482; font-size:.8rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; }
+    .composition-card h3 { margin-bottom:8px; font-size:1.12rem; }
+    .composition-card p { margin-bottom:8px; color:var(--muted); font-size:.9rem; }
+    .composition-card p:last-child { margin-bottom:0; }
+    .composer-note { margin:20px auto 0; max-width:800px; color:var(--muted); font-size:.84rem; text-align:center; }
+    footer { padding:25px 0 36px; color:var(--muted); text-align:center; font-size:.85rem; }
+    :focus-visible { outline:3px solid #bf5b49; outline-offset:3px; }
+    @media (max-width:850px) { .composition-grid { grid-template-columns:repeat(2,1fr); } }
+    @media (max-width:600px) { .wrap { width:calc(100% - 28px); } .composition-grid { grid-template-columns:1fr; } .composer-form { flex-direction:column; } }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition-duration:.01ms !important; } }
+    .music-section { background: #f3f0fa; }
+    .music-intro {
+      max-width: 780px;
+      margin: 0 auto 30px;
+      color: var(--muted);
+      text-align: center;
+    }
+    .mode-group { margin-top: 34px; }
+    .mode-group h3 {
+      margin-bottom: 14px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.55rem;
+      font-weight: 500;
+    }
+    .mode-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .mode-card {
+      padding: 18px 20px;
+      border: 1px solid #e6deef;
+      border-radius: 17px;
+      background: rgba(255,255,255,.82);
+    }
+    .mode-card h4 { margin: 0 0 5px; font-size: .98rem; }
+    .mode-card p { margin: 0; color: var(--muted); font-size: .88rem; }
+    .formula { display: block; margin-top: 7px; color: #675482; font-size: .82rem; font-weight: 750; }
+    .music-note {
+      margin-top: 16px;
+      padding: 15px 18px;
+      border-left: 4px solid #8a72a9;
+      border-radius: 10px;
+      background: rgba(255,255,255,.75);
+      color: #5e5268;
+      font-size: .9rem;
+    }
+    .music-lab {
+      margin-top: 38px;
+      padding: clamp(20px, 4vw, 36px);
+      border: 1px solid #e6deef;
+      border-radius: 26px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+    .music-lab h3 { margin-bottom: 8px; font-family: Georgia, "Times New Roman", serif; font-size: 1.7rem; font-weight: 500; }
+    .lab-copy { max-width: 760px; color: var(--muted); }
+    .music-controls { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 22px 0; }
+    .music-controls label { display: grid; gap: 6px; color: var(--ink); font-size: .83rem; font-weight: 750; }
+    .music-controls select {
+      width: 100%;
+      min-height: 44px;
+      padding: 9px 12px;
+      border: 1px solid #ddd3e8;
+      border-radius: 11px;
+      background: white;
+      color: var(--ink);
+      font: inherit;
+    }
+    .scale-summary {
+      display: grid;
+      gap: 5px;
+      margin: 18px 0;
+      padding: 15px 17px;
+      border-radius: 14px;
+      background: #f4f0f8;
+      color: #5e5268;
+      font-size: .9rem;
+    }
+    .scale-summary strong { color: var(--ink); }
+    .piano-wrap { overflow-x: auto; padding: 8px 2px 14px; }
+    .piano {
+      position: relative;
+      display: flex;
+      min-width: 620px;
+      height: 190px;
+      padding: 0;
+      user-select: none;
+    }
+    .piano-key {
+      touch-action: manipulation;
+      cursor: pointer;
+      font: inherit;
+    }
+    .piano-key.white {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      min-width: 0;
+      padding: 0 0 9px;
+      align-self: stretch;
+      border: 1px solid #cfc7c5;
+      border-radius: 0 0 7px 7px;
+      background: linear-gradient(#fff 0%, #fff 80%, #f3efed 100%);
+      color: #71676b;
+      font-size: .72rem;
+      text-align: center;
+      vertical-align: bottom;
+    }
+    .piano-key.black {
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      width: 2.95%;
+      height: 62%;
+      padding: 0 0 7px;
+      border: 1px solid #171418;
+      border-radius: 0 0 6px 6px;
+      background: linear-gradient(90deg, #2d2930, #100e12);
+      box-shadow: 0 4px 5px rgba(0,0,0,.2);
+      color: #e8e2eb;
+      font-size: .62rem;
+      transform: translateX(-50%);
+    }
+    .piano-key.in-scale.white { background: linear-gradient(#f4eefa, #e1d3ee); }
+    .piano-key.in-scale.black { background: linear-gradient(90deg, #755c8c, #49375e); }
+    .piano-key:active, .piano-key.is-playing { filter: brightness(.84); }
+    .lab-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 12px; }
+    .lab-actions .button { margin: 0; border: 0; cursor: pointer; }
+    .button.secondary { border: 1px solid #ddd3e8; background: white; color: var(--ink); }
+    .button.secondary:hover { background: #f4f0f8; }
+    .degree-label { display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: .88rem; font-weight: 700; }
+    .degree-label select {
+      min-height: 42px;
+      padding: 8px 10px;
+      border: 1px solid #ddd3e8;
+      border-radius: 10px;
+      background: white;
+      color: var(--ink);
+      font: inherit;
+    }
+    .chord-result { min-height: 28px; margin: 12px 0 0; color: #5e5268; font-size: .9rem; }
+    .audio-status { min-height: 22px; margin: 8px 0 0; color: var(--muted); font-size: .82rem; }
+
+    .composition-grid:empty { display:none; }
+    .composition-card { animation: arrive .25s ease-out both; }
+    @keyframes arrive { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+    .visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  </style>
+</head>
+<body>
+  <header class="topbar wrap">
+    <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">🐾</span>Volver a Pequeñas Patitas</a>
+  </header>
+  <main>
+    <h1>Explora escalas, acordes y sonidos</h1>
+    <section class="section music-section" id="modos" aria-labelledby="modos-title">
+      <div class="wrap">
+        <div class="section-heading">
+          <p class="eyebrow">Una pausa para explorar sonidos</p>
+          <h2 id="modos-title">Modos griegos y armonía cuartal</h2>
+        </div>
+        <p class="music-intro">Un modo es una escala de siete notas con su propio centro y carácter. Las fórmulas de abajo muestran sus intervalos respecto a la tónica; puedes compararlos y escucharlos en el piano interactivo.</p>
+
+        <div class="mode-group">
+          <h3>Modos de la escala mayor (natural)</h3>
+          <div class="mode-grid">
+            <article class="mode-card"><h4>Jónico</h4><p>La escala mayor: sonido estable y familiar.</p><span class="formula">1 · 2 · 3 · 4 · 5 · 6 · 7</span></article>
+            <article class="mode-card"><h4>Dórico</h4><p>Menor, pero con una sexta mayor luminosa.</p><span class="formula">1 · 2 · ♭3 · 4 · 5 · 6 · ♭7</span></article>
+            <article class="mode-card"><h4>Frigio</h4><p>Menor y tenso, reconocible por su segunda menor.</p><span class="formula">1 · ♭2 · ♭3 · 4 · 5 · ♭6 · ♭7</span></article>
+            <article class="mode-card"><h4>Lidio</h4><p>Mayor, con un color abierto por la cuarta aumentada.</p><span class="formula">1 · 2 · 3 · ♯4 · 5 · 6 · 7</span></article>
+            <article class="mode-card"><h4>Mixolidio</h4><p>Mayor con séptima menor; frecuente en blues y rock.</p><span class="formula">1 · 2 · 3 · 4 · 5 · 6 · ♭7</span></article>
+            <article class="mode-card"><h4>Eólico</h4><p>La escala menor natural.</p><span class="formula">1 · 2 · ♭3 · 4 · 5 · ♭6 · ♭7</span></article>
+            <article class="mode-card"><h4>Locrio</h4><p>Menor e inestable, con segunda y quinta disminuidas.</p><span class="formula">1 · ♭2 · ♭3 · 4 · ♭5 · ♭6 · ♭7</span></article>
+          </div>
+          <aside class="music-note">Estos siete modos comparten las notas de una escala mayor: por ejemplo, Do jónico y Re dórico usan las teclas blancas, pero Re debe sentirse como el centro para que la sonoridad sea dórica. Los nombres se usan aquí en su sentido modal moderno.</aside>
+        </div>
+
+        <div class="mode-group">
+          <h3>Modos de la menor melódica</h3>
+          <div class="mode-grid">
+            <article class="mode-card"><h4>Menor melódica</h4><p>Menor con sexta y séptima mayores; también llamada menor melódica de jazz.</p><span class="formula">1 · 2 · ♭3 · 4 · 5 · 6 · 7</span></article>
+            <article class="mode-card"><h4>Dórico ♭2</h4><p>Color dórico con una segunda menor; también se conoce como frigio ♮6.</p><span class="formula">1 · ♭2 · ♭3 · 4 · 5 · 6 · ♭7</span></article>
+            <article class="mode-card"><h4>Lidio aumentado</h4><p>Color lidio con quinta aumentada.</p><span class="formula">1 · 2 · 3 · ♯4 · ♯5 · 6 · 7</span></article>
+            <article class="mode-card"><h4>Lidio dominante</h4><p>Sonido lidio con séptima menor; útil sobre acordes de dominante.</p><span class="formula">1 · 2 · 3 · ♯4 · 5 · 6 · ♭7</span></article>
+            <article class="mode-card"><h4>Mixolidio ♭6</h4><p>Una escala mayor con séptima menor y sexta menor.</p><span class="formula">1 · 2 · 3 · 4 · 5 · ♭6 · ♭7</span></article>
+            <article class="mode-card"><h4>Locrio ♮2</h4><p>Color locrio con segunda mayor en lugar de segunda menor.</p><span class="formula">1 · 2 · ♭3 · 4 · ♭5 · ♭6 · ♭7</span></article>
+            <article class="mode-card"><h4>Alterado</h4><p>Modo de tensión para dominante, con varias notas alteradas.</p><span class="formula">1 · ♭2 · ♯2 · 3 · ♯4 · ♭6 · ♭7</span></article>
+          </div>
+          <aside class="music-note">En la teoría clásica, la menor melódica suele cambiar al descender (usa la forma menor natural). En la práctica modal y en el jazz se suele estudiar la forma ascendente tanto al subir como al bajar; los modos de esta lista parten de esa forma.</aside>
+        </div>
+
+        <div class="music-lab" aria-labelledby="piano-title">
+          <h3 id="piano-title">Prueba modos y acordes cuartales</h3>
+          <p class="lab-copy">Elige una tónica y un modo: las teclas de la escala quedarán resaltadas. Pulsa cualquier tecla del piano para oírla, o genera un acorde cuartal apilando notas separadas por cuartas diatónicas (se saltan dos grados de la escala cada vez). Según el modo, algunas cuartas serán aumentadas o disminuidas en vez de justas.</p>
+          <div class="music-controls">
+            <label for="scale-family">Familia de escala
+              <select id="scale-family">
+                <option value="major">Mayor (natural)</option>
+                <option value="melodic">Menor melódica</option>
+              </select>
+            </label>
+            <label for="mode-select">Modo
+              <select id="mode-select"></select>
+            </label>
+            <label for="root-select">Tónica
+              <select id="root-select">
+                <option value="0">Do</option><option value="1">Do♯ / Re♭</option>
+                <option value="2">Re</option><option value="3">Re♯ / Mi♭</option>
+                <option value="4">Mi</option><option value="5">Fa</option>
+                <option value="6">Fa♯ / Sol♭</option><option value="7">Sol</option>
+                <option value="8">Sol♯ / La♭</option><option value="9">La</option>
+                <option value="10">La♯ / Si♭</option><option value="11">Si</option>
+              </select>
+            </label>
+          </div>
+          <div class="scale-summary" aria-live="polite">
+            <strong id="scale-name">Escala seleccionada</strong>
+            <span id="scale-notes"></span>
+            <span id="scale-formula"></span>
+          </div>
+          <div class="piano-wrap">
+            <div class="piano" id="piano" role="group" aria-label="Piano interactivo de Do3 a Si5"></div>
+          </div>
+          <div class="lab-actions">
+            <label class="degree-label" for="chord-degree">Grado del acorde
+              <select id="chord-degree">
+                <option value="0">I</option><option value="1">II</option>
+                <option value="2">III</option><option value="3">IV</option>
+                <option value="4">V</option><option value="5">VI</option>
+                <option value="6">VII</option>
+              </select>
+            </label>
+            <button class="button" id="play-quartal" type="button">Probar acorde cuartal</button>
+            <button class="button secondary" id="play-scale" type="button">Escuchar escala</button>
+          </div>
+          <p class="chord-result" id="chord-result" aria-live="polite"></p>
+          <p class="audio-status" id="audio-status" aria-live="polite">El audio comienza al pulsar una tecla o un botón.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section wrap" id="composicion" aria-labelledby="composicion-title">
+      <div class="section-heading">
+        <p class="eyebrow">Laboratorio de ideas</p>
+        <h2 id="composicion-title">Una composición a partir de un objeto</h2>
+      </div>
+      <p class="composer-intro">Escribe un objeto cotidiano y obtén tres partituras abiertas para convertir sus sonidos, gestos y silencios en una pieza experimental contemporánea. Cada propuesta incluye una idea y una guía para probarla.</p>
+      <form class="composer-form" id="object-form">
+        <label class="visually-hidden" for="object-input">Objeto para inspirar una composición</label>
+        <input id="object-input" name="object" type="text" maxlength="80" placeholder="Ej.: una llave, un vaso, una bicicleta" required>
+        <button type="submit">Generar ideas</button>
+      </form>
+      <p class="composer-status" id="composer-status" aria-live="polite">Las ideas se generan en esta página; no se envían tus palabras a ningún servicio.</p>
+      <div class="composition-grid" id="composition-results" aria-live="polite"></div>
+      <p class="composer-note">Las propuestas son ejercicios originales de música experimental: exploran escucha atenta, azar, silencio y reglas abiertas. No imitan directamente a ningún compositor ni reproducen obras existentes. Usa objetos seguros y de volumen moderado.</p>
+    </section>
+  </main>
+  <footer class="wrap"><p>Laboratorio musical interactivo · Escucha, experimenta y crea tus propias reglas.</p></footer>
+  <script>
+    (() => {
+      const pitchNames = ["Do", "Do♯", "Re", "Re♯", "Mi", "Fa", "Fa♯", "Sol", "Sol♯", "La", "La♯", "Si"];
+      const modeSets = {
+        major: [
+          { name: "Jónico", intervals: [0, 2, 4, 5, 7, 9, 11], formula: "1 · 2 · 3 · 4 · 5 · 6 · 7" },
+          { name: "Dórico", intervals: [0, 2, 3, 5, 7, 9, 10], formula: "1 · 2 · ♭3 · 4 · 5 · 6 · ♭7" },
+          { name: "Frigio", intervals: [0, 1, 3, 5, 7, 8, 10], formula: "1 · ♭2 · ♭3 · 4 · 5 · ♭6 · ♭7" },
+          { name: "Lidio", intervals: [0, 2, 4, 6, 7, 9, 11], formula: "1 · 2 · 3 · ♯4 · 5 · 6 · 7" },
+          { name: "Mixolidio", intervals: [0, 2, 4, 5, 7, 9, 10], formula: "1 · 2 · 3 · 4 · 5 · 6 · ♭7" },
+          { name: "Eólico", intervals: [0, 2, 3, 5, 7, 8, 10], formula: "1 · 2 · ♭3 · 4 · 5 · ♭6 · ♭7" },
+          { name: "Locrio", intervals: [0, 1, 3, 5, 6, 8, 10], formula: "1 · ♭2 · ♭3 · 4 · ♭5 · ♭6 · ♭7" }
+        ],
+        melodic: [
+          { name: "Menor melódica", intervals: [0, 2, 3, 5, 7, 9, 11], formula: "1 · 2 · ♭3 · 4 · 5 · 6 · 7" },
+          { name: "Dórico ♭2", intervals: [0, 1, 3, 5, 7, 9, 10], formula: "1 · ♭2 · ♭3 · 4 · 5 · 6 · ♭7" },
+          { name: "Lidio aumentado", intervals: [0, 2, 4, 6, 8, 9, 11], formula: "1 · 2 · 3 · ♯4 · ♯5 · 6 · 7" },
+          { name: "Lidio dominante", intervals: [0, 2, 4, 6, 7, 9, 10], formula: "1 · 2 · 3 · ♯4 · 5 · 6 · ♭7" },
+          { name: "Mixolidio ♭6", intervals: [0, 2, 4, 5, 7, 8, 10], formula: "1 · 2 · 3 · 4 · 5 · ♭6 · ♭7" },
+          { name: "Locrio ♮2", intervals: [0, 2, 3, 5, 6, 8, 10], formula: "1 · 2 · ♭3 · 4 · ♭5 · ♭6 · ♭7" },
+          { name: "Alterado", intervals: [0, 1, 3, 4, 6, 8, 10], formula: "1 · ♭2 · ♯2 · 3 · ♯4 · ♭6 · ♭7" }
+        ]
+      };
+      const familySelect = document.getElementById("scale-family");
+      const modeSelect = document.getElementById("mode-select");
+      const rootSelect = document.getElementById("root-select");
+      const chordDegree = document.getElementById("chord-degree");
+      const piano = document.getElementById("piano");
+      const scaleName = document.getElementById("scale-name");
+      const scaleNotes = document.getElementById("scale-notes");
+      const scaleFormula = document.getElementById("scale-formula");
+      const chordResult = document.getElementById("chord-result");
+      const audioStatus = document.getElementById("audio-status");
+      let audioContext;
+
+      function currentMode() {
+        return modeSets[familySelect.value][Number(modeSelect.value)];
+      }
+
+      function currentPitchClasses() {
+        const tonic = Number(rootSelect.value);
+        return currentMode().intervals.map((interval) => (tonic + interval) % 12);
+      }
+
+      function renderModes() {
+        modeSelect.replaceChildren();
+        modeSets[familySelect.value].forEach((mode, index) => {
+          const option = document.createElement("option");
+          option.value = String(index);
+          option.textContent = mode.name;
+          modeSelect.append(option);
+        });
+        updateScale();
+      }
+
+      function updateScale() {
+        const mode = currentMode();
+        const tonic = Number(rootSelect.value);
+        const notes = mode.intervals.map((interval) => pitchNames[(tonic + interval) % 12]);
+        scaleName.textContent = `${pitchNames[tonic]} ${mode.name}`;
+        scaleNotes.textContent = `Notas: ${notes.join(" · ")}`;
+        scaleFormula.textContent = `Fórmula: ${mode.formula}`;
+        const pitchClasses = currentPitchClasses();
+        piano.querySelectorAll(".piano-key").forEach((key) => {
+          key.classList.toggle("in-scale", pitchClasses.includes(Number(key.dataset.midi) % 12));
+        });
+        chordResult.textContent = "";
+      }
+
+      function renderPiano() {
+        piano.replaceChildren();
+        let whiteKeyIndex = 0;
+        const startingMidi = 48;
+        for (let midi = startingMidi; midi <= 83; midi += 1) {
+          const pitch = midi % 12;
+          const isBlack = [1, 3, 6, 8, 10].includes(pitch);
+          const key = document.createElement("button");
+          key.type = "button";
+          key.className = `piano-key ${isBlack ? "black" : "white"}`;
+          key.dataset.midi = String(midi);
+          key.setAttribute("aria-label", `${pitchNames[pitch]}${Math.floor(midi / 12) - 1}`);
+          if (isBlack) {
+            const precedingWhiteIndex = whiteKeyIndex - 1;
+            key.style.left = `${((precedingWhiteIndex + 1) / 21) * 100}%`;
+          } else {
+            key.textContent = pitch === 0 || pitch === 5 ? `${pitchNames[pitch]}${Math.floor(midi / 12) - 1}` : "";
+            whiteKeyIndex += 1;
+          }
+          key.addEventListener("click", () => playNotes([midi], 0.7));
+          piano.append(key);
+        }
+      }
+
+      async function playNotes(midiNotes, duration, noteSpacing = 0) {
+        const AudioContextConstructor = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextConstructor) {
+          audioStatus.textContent = "Este navegador no tiene audio Web Audio disponible.";
+          return;
+        }
+        if (!audioContext) audioContext = new AudioContextConstructor();
+        await audioContext.resume();
+        const start = audioContext.currentTime;
+        midiNotes.forEach((midi, index) => {
+          const noteStart = start + index * noteSpacing;
+          const oscillator = audioContext.createOscillator();
+          const gain = audioContext.createGain();
+          oscillator.type = "triangle";
+          oscillator.frequency.value = 440 * (2 ** ((midi - 69) / 12));
+          gain.gain.setValueAtTime(0.0001, noteStart);
+          gain.gain.exponentialRampToValueAtTime(0.13 / Math.sqrt(midiNotes.length), noteStart + 0.025);
+          gain.gain.exponentialRampToValueAtTime(0.0001, noteStart + duration);
+          oscillator.connect(gain);
+          gain.connect(audioContext.destination);
+          oscillator.start(noteStart);
+          oscillator.stop(noteStart + duration + 0.03);
+        });
+        audioStatus.textContent = "Sonido generado con el audio del navegador.";
+      }
+
+      function playWithStatus(notes, duration, noteSpacing = 0) {
+        playNotes(notes, duration, noteSpacing).catch(() => {
+          audioStatus.textContent = "No se pudo iniciar el audio. Comprueba los permisos de sonido del navegador.";
+        });
+      }
+
+      familySelect.addEventListener("change", renderModes);
+      modeSelect.addEventListener("change", updateScale);
+      rootSelect.addEventListener("change", updateScale);
+      document.getElementById("play-scale").addEventListener("click", () => {
+        const tonic = Number(rootSelect.value);
+        const notes = currentMode().intervals.map((interval) => 48 + tonic + interval);
+        playWithStatus(notes, 0.32, 0.38);
+      });
+      document.getElementById("play-quartal").addEventListener("click", () => {
+        const tonic = Number(rootSelect.value);
+        const intervals = currentMode().intervals;
+        const degree = Number(chordDegree.value);
+        const noteIndexes = [degree, degree + 3, degree + 6, degree + 9];
+        const notes = noteIndexes.map((index) => 48 + tonic + (Math.floor(index / 7) * 12) + intervals[index % 7]);
+        const chordNames = notes.map((midi) => `${pitchNames[midi % 12]}${Math.floor(midi / 12) - 1}`);
+        const degreeNames = ["I", "II", "III", "IV", "V", "VI", "VII"];
+        chordResult.textContent = `Acorde ${degreeNames[degree]}: ${chordNames.join(" – ")}. Cuartas diatónicas apiladas; algunas pueden ser aumentadas o disminuidas.`;
+        playWithStatus(notes, 1.25);
+      });
+
+      renderPiano();
+      renderModes();
+    })();
+  </script>
+  <script>
+    (() => {
+      const form = document.getElementById("object-form");
+      const input = document.getElementById("object-input");
+      const results = document.getElementById("composition-results");
+      const status = document.getElementById("composer-status");
+      const ideas = [
+        {
+          title: "Inventario de resonancias",
+          concept: "Escucha y timbre",
+          explain: (object) => `Trata ${object} como un pequeño paisaje de resonancias, no como un instrumento con una única forma correcta de sonar.`,
+          steps: (object) => `Explora tres acciones seguras sobre ${object} (por ejemplo, tocar, rozar o dejarlo vibrar). Graba cada sonido; intercala pausas de duración elegida al azar y ordena los fragmentos sin buscar un pulso fijo.`
+        },
+        {
+          title: "Partitura de encuentros",
+          concept: "Azar y decisiones abiertas",
+          explain: (object) => `La pieza cambia en cada interpretación: ${object} propone eventos, pero el orden y los silencios nunca quedan totalmente fijados.`,
+          steps: (object) => `Escribe cinco acciones distintas para ${object} y numéralas. Lanza una moneda para elegir cuál realizar; después de cada sonido, espera entre 5 y 20 segundos (elige el tiempo al azar). Si una acción no produce sonido, conserva también ese silencio.`
+        },
+        {
+          title: "Retrato en ausencia",
+          concept: "Silencio y atención al entorno",
+          explain: (object) => `El protagonista es la escucha: ${object} funciona como señal para notar sonidos que normalmente pasan inadvertidos.`,
+          steps: (object) => `Coloca ${object} en el espacio sin tocarlo durante un minuto y anota los sonidos que lo rodean. Después, recrea solo algunos con voz, cuerpo u otros objetos; alterna breves recreaciones con pausas largas.`
+        }
+      ];
+
+      function makeCard(idea, object) {
+        const article = document.createElement("article");
+        article.className = "composition-card";
+        const concept = document.createElement("p");
+        concept.className = "concept";
+        concept.textContent = idea.concept;
+        const title = document.createElement("h3");
+        title.textContent = idea.title;
+        const explanation = document.createElement("p");
+        explanation.textContent = idea.explain(object);
+        const steps = document.createElement("p");
+        steps.textContent = idea.steps(object);
+        article.append(concept, title, explanation, steps);
+        return article;
+      }
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const object = input.value.trim();
+        if (!object) {
+          status.textContent = "Escribe el nombre de un objeto para generar ideas.";
+          input.focus();
+          return;
+        }
+        results.replaceChildren(...ideas.map((idea) => makeCard(idea, object)));
+        status.textContent = `Tres propuestas originales para explorar ${object}.`;
+      });
+    })();
+  </script>
+</body>
+</html>
