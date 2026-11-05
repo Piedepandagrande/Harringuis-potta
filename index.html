@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff8f1">
+  <meta name="description" content="Guía práctica para cuidar, alimentar y acompañar el crecimiento saludable de gatitos bebés.">
+  <title>Pequeñas Patitas | Guía para gatitos bebés</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #342d31;
+      --muted: #71676b;
+      --cream: #fff8f1;
+      --paper: #fffdfb;
+      --coral: #e87962;
+      --coral-dark: #a94737;
+      --peach: #ffe4d8;
+      --mint: #e3f0e8;
+      --lavender: #eee8f5;
+      --line: #eee3dc;
+      --shadow: 0 18px 48px rgba(79, 49, 39, .09);
+      font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+    a { color: inherit; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+    .topbar { padding: 18px 0; }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      font-size: 1.08rem;
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: -.03em;
+    }
+    .brand-mark {
+      display: grid;
+      width: 40px;
+      height: 40px;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--coral);
+      font-size: 1.3rem;
+    }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 22px; }
+    .nav-links a {
+      color: var(--muted);
+      font-size: .9rem;
+      font-weight: 650;
+      text-decoration: none;
+    }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--coral-dark); }
+    .hero { padding: 42px 0 62px; }
+    .hero-panel {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      align-items: center;
+      gap: 38px;
+      min-height: 420px;
+      padding: clamp(30px, 6vw, 72px);
+      border: 1px solid #f4dfd3;
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 85% 20%, rgba(255,255,255,.82) 0 12%, transparent 12.5%),
+        linear-gradient(120deg, #ffe9dc, #fff1e5 65%, #fae5dc);
+    }
+    .hero-copy { position: relative; z-index: 1; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 16px;
+      color: var(--coral-dark);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      max-width: 620px;
+      margin-bottom: 18px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.6rem, 6vw, 4.65rem);
+      font-weight: 500;
+      letter-spacing: -.055em;
+      line-height: 1.04;
+    }
+    h1 span { color: var(--coral-dark); font-style: italic; }
+    .hero-copy > p:not(.eyebrow) { max-width: 540px; color: #66595b; font-size: 1.08rem; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 12px;
+      padding: 13px 20px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: white;
+      font-size: .92rem;
+      font-weight: 750;
+      text-decoration: none;
+      transition: transform .2s, background .2s;
+    }
+    .button:hover { transform: translateY(-2px); background: var(--coral-dark); }
+    .hero-art {
+      position: relative;
+      display: grid;
+      min-height: 280px;
+      place-items: center;
+    }
+    .sun {
+      position: absolute;
+      top: 4px;
+      right: 12%;
+      width: 205px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: rgba(255,255,255,.5);
+    }
+    .kitten {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      width: 230px;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 12px solid rgba(255,255,255,.55);
+      border-radius: 48% 52% 43% 57%;
+      background: #e99b79;
+      box-shadow: 0 25px 35px rgba(148, 79, 54, .16);
+      font-size: 7rem;
+      transform: rotate(4deg);
+    }
+    .float-note {
+      position: absolute;
+      z-index: 2;
+      right: 0;
+      bottom: 10px;
+      max-width: 190px;
+      padding: 12px 16px;
+      border: 1px solid rgba(255,255,255,.8);
+      border-radius: 16px;
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 10px 24px rgba(79,49,39,.08);
+      color: var(--muted);
+      font-size: .84rem;
+      line-height: 1.4;
+    }
+    .float-note strong { display: block; color: var(--ink); }
+    section { scroll-margin-top: 24px; }
+    .section { padding: 58px 0; }
+    .section-heading { max-width: 660px; margin: 0 auto 34px; text-align: center; }
+    .section-heading .eyebrow { justify-content: center; margin-bottom: 8px; }
+    h2 {
+      margin-bottom: 10px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      letter-spacing: -.045em;
+      line-height: 1.12;
+    }
+    .section-heading p { margin-bottom: 0; color: var(--muted); }
+    .milestones {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .milestone, .card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--paper);
+      box-shadow: 0 8px 26px rgba(79,49,39,.035);
+    }
+    .milestone { padding: 22px; }
+    .age {
+      display: inline-block;
+      margin-bottom: 13px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--peach);
+      color: var(--coral-dark);
+      font-size: .76rem;
+      font-weight: 800;
+    }
+    .milestone:nth-child(2) .age { background: var(--mint); color: #42644e; }
+    .milestone:nth-child(3) .age { background: var(--lavender); color: #675482; }
+    .milestone:nth-child(4) .age { background: #f8edc8; color: #786124; }
+    .milestone h3, .card h3 { margin-bottom: 8px; font-size: 1.02rem; }
+    .milestone p, .card p, .card li { margin-bottom: 0; color: var(--muted); font-size: .91rem; }
+    .care { background: #fffdfb; }
+    .care-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .card { padding: 25px; }
+    .icon {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      margin-bottom: 17px;
+      place-items: center;
+      border-radius: 16px;
+      background: var(--peach);
+      font-size: 1.35rem;
+    }
+    .card:nth-child(2) .icon, .card:nth-child(5) .icon { background: var(--mint); }
+    .card:nth-child(3) .icon, .card:nth-child(6) .icon { background: var(--lavender); }
+    .card ul { display: grid; gap: 8px; margin: 13px 0 0; padding-left: 19px; }
+    .card li { padding-left: 2px; }
+    .callout {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      margin-top: 20px;
+      padding: 20px 22px;
+      border: 1px solid #f0d7a7;
+      border-radius: 20px;
+      background: #fff8e6;
+    }
+    .callout-icon { font-size: 1.5rem; }
+    .callout h3 { margin-bottom: 4px; font-size: 1rem; }
+    .callout p { margin-bottom: 0; color: #6f6148; font-size: .92rem; }
+    .urgent {
+      display: grid;
+      grid-template-columns: .7fr 1.3fr;
+      gap: 34px;
+      align-items: center;
+      padding: clamp(25px, 5vw, 46px);
+      border-radius: 28px;
+      background: #49393b;
+      color: white;
+    }
+    .urgent h2 { margin-bottom: 8px; font-size: clamp(1.8rem, 3vw, 2.4rem); }
+    .urgent p { margin-bottom: 0; color: #e6d9d8; }
+    .red-flags { display: grid; grid-template-columns: 1fr 1fr; gap: 11px 22px; margin: 0; padding: 0; list-style: none; }
+    .red-flags li { color: #fff6f1; font-size: .9rem; }
+    .red-flags li::before { content: "•"; margin-right: 9px; color: #ffb59f; font-size: 1.1rem; }
+    .faq { display: grid; gap: 10px; max-width: 780px; margin: 0 auto; }
+    details {
+      padding: 17px 20px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--paper);
+    }
+    summary { cursor: pointer; font-weight: 750; }
+    details p { margin: 10px 0 0; color: var(--muted); font-size: .93rem; }
+    footer { padding: 30px 0 38px; color: var(--muted); text-align: center; font-size: .84rem; }
+    footer p { margin: 4px 0; }
+    :focus-visible { outline: 3px solid #bf5b49; outline-offset: 3px; }
+
+    @media (max-width: 850px) {
+      .hero-panel { grid-template-columns: 1fr .7fr; gap: 10px; }
+      .kitten { width: 190px; font-size: 5.8rem; }
+      .milestones { grid-template-columns: repeat(2, 1fr); }
+      .care-grid { grid-template-columns: repeat(2, 1fr); }
+      .urgent { grid-template-columns: 1fr; gap: 22px; }
+    }
+    @media (max-width: 600px) {
+      .wrap { width: min(100% - 28px, 1120px); }
+      .topbar { padding: 13px 0; }
+      .nav { align-items: flex-start; flex-direction: column; gap: 10px; }
+      .nav-links { gap: 8px 16px; }
+      .nav-links a { font-size: .82rem; }
+      .hero { padding: 22px 0 38px; }
+      .hero-panel { grid-template-columns: 1fr; padding: 30px 24px 20px; border-radius: 26px; }
+      .hero-copy > p:not(.eyebrow) { font-size: 1rem; }
+      .hero-art { min-height: 220px; }
+      .kitten { width: 165px; font-size: 5rem; }
+      .sun { width: 155px; right: 20%; }
+      .float-note { right: 0; bottom: 0; max-width: 170px; }
+      .section { padding: 42px 0; }
+      .milestones, .care-grid { grid-template-columns: 1fr; }
+      .milestone { padding: 20px; }
+      .red-flags { grid-template-columns: 1fr; gap: 8px; }
+      .callout { padding: 17px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav wrap" aria-label="Navegación principal">
+      <a class="brand" href="#" aria-label="Pequeñas Patitas, inicio">
+        <span class="brand-mark" aria-hidden="true">🐾</span>
+        Pequeñas Patitas
+      </a>
+      <div class="nav-links">
+        <a href="#etapas">Etapas</a>
+        <a href="#cuidados">Cuidados</a>
+        <a href="#veterinario">Cuándo acudir</a>
+        <a href="#preguntas">Preguntas</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-panel">
+        <div class="hero-copy">
+          <p class="eyebrow">Una guía para sus primeros pasos</p>
+          <h1 id="hero-title">Pequeños hoy,<br><span>grandes compañeros.</span></h1>
+          <p>Los primeros meses son una aventura. Con calor, buena alimentación, revisiones y cariño, puedes ayudar a tu gatito a crecer sano y seguro.</p>
+          <a class="button" href="#cuidados">Ver guía de cuidados <span aria-hidden="true">&nbsp;↓</span></a>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="sun"></div>
+          <div class="kitten">🐈</div>
+          <div class="float-note"><strong>Un comienzo tranquilo</strong>Rutina, paciencia y un lugar seguro hacen la diferencia.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="etapas" aria-labelledby="etapas-title">
+      <div class="section-heading">
+        <p class="eyebrow">Crecer paso a paso</p>
+        <h2 id="etapas-title">Cada etapa trae algo nuevo</h2>
+        <p>Las edades son aproximadas: cada gatito tiene su propio ritmo y el veterinario puede orientar según su salud.</p>
+      </div>
+      <div class="milestones">
+        <article class="milestone">
+          <span class="age">0–2 semanas</span>
+          <h3>Calor y alimento</h3>
+          <p>Depende de su madre para alimentarse y mantenerse caliente. Aún no regula bien su temperatura ni elimina por sí solo.</p>
+        </article>
+        <article class="milestone">
+          <span class="age">2–4 semanas</span>
+          <h3>Sentidos despiertos</h3>
+          <p>Empieza a explorar, caminar y relacionarse. Necesita un ambiente protegido y manipulación muy delicada.</p>
+        </article>
+        <article class="milestone">
+          <span class="age">4–8 semanas</span>
+          <h3>Explorar y aprender</h3>
+          <p>Puede comenzar el destete gradual y conocer el arenero. El juego y las experiencias positivas son importantes.</p>
+        </article>
+        <article class="milestone">
+          <span class="age">8 semanas en adelante</span>
+          <h3>Más independencia</h3>
+          <p>Continúa creciendo y aprendiendo. Requiere alimento para gatitos, juego diario y controles de salud programados.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section care" id="cuidados" aria-labelledby="cuidados-title">
+      <div class="wrap">
+        <div class="section-heading">
+          <p class="eyebrow">Lo esencial para su bienestar</p>
+          <h2 id="cuidados-title">Cuidados que sí cuentan</h2>
+          <p>Pequeños hábitos diarios ayudan a crear una base saludable para toda su vida.</p>
+        </div>
+        <div class="care-grid">
+          <article class="card">
+            <div class="icon" aria-hidden="true">🥛</div>
+            <h3>Alimentación adecuada</h3>
+            <p>La leche materna es lo mejor para los recién nacidos. Si no está disponible, pide al veterinario una fórmula comercial para gatitos.</p>
+            <ul>
+              <li>No le des leche de vaca.</li>
+              <li>Introduce alimento húmedo para gatitos gradualmente, alrededor de las 4 semanas.</li>
+              <li>Después del destete, ofrece alimento completo para gatitos y agua fresca.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">🧺</div>
+            <h3>Calor y descanso</h3>
+            <p>Prepara un nido limpio, seco, tranquilo y sin corrientes de aire, cerca de su madre si está con ella.</p>
+            <ul>
+              <li>Si usas una fuente de calor, deja espacio para que pueda alejarse y evita el contacto directo.</li>
+              <li>Un gatito frío, débil o que no responde necesita atención veterinaria urgente; no lo fuerces a comer.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">🩺</div>
+            <h3>Salud preventiva</h3>
+            <p>Agenda una revisión pronto, especialmente si fue rescatado o no conoces su historial.</p>
+            <ul>
+              <li>El profesional indicará vacunas, desparasitación y controles según edad y estado de salud.</li>
+              <li>Pésalo con regularidad y anota su evolución; consulta si no gana peso o pierde peso.</li>
+              <li>No uses medicamentos ni antipulgas sin confirmar que son seguros para su edad y peso.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">🧼</div>
+            <h3>Higiene y arenero</h3>
+            <p>Mantén limpios sus platos, cama y arenero. Los gatitos muy pequeños pueden necesitar ayuda para hacer sus necesidades.</p>
+            <ul>
+              <li>Si aún no elimina por sí solo, pide al veterinario que te enseñe cómo estimularlo después de cada toma.</li>
+              <li>Coloca un arenero bajo, limpio y fácil de alcanzar cuando empiece a explorar.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">🧶</div>
+            <h3>Juego y socialización</h3>
+            <p>Las experiencias amables ayudan a que gane confianza con personas, sonidos y su entorno.</p>
+            <ul>
+              <li>Háblale con calma y deja que se acerque a su ritmo.</li>
+              <li>Usa juguetes seguros; evita que juegue con hilos, cintas o piezas pequeñas sin supervisión.</li>
+              <li>El juego nunca debe sustituir el descanso ni separarlo antes de tiempo de su madre y camada.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true">🏠</div>
+            <h3>Un hogar a prueba de gatitos</h3>
+            <p>Su curiosidad es enorme y todavía no sabe reconocer muchos peligros.</p>
+            <ul>
+              <li>Asegura ventanas y balcones; guarda cables, medicamentos y productos de limpieza.</li>
+              <li>Retira plantas potencialmente tóxicas, como los lirios, y consulta si no sabes si una planta es segura.</li>
+              <li>Ofrécele escondites tranquilos y un rascador apropiado.</li>
+            </ul>
+          </article>
+        </div>
+        <aside class="callout">
+          <div class="callout-icon" aria-hidden="true">💛</div>
+          <div>
+            <h3>¿Encontraste un gatito huérfano?</h3>
+            <p>Contacta cuanto antes a un veterinario o refugio con experiencia en neonatos. La alimentación, el calor y la ayuda para eliminar dependen de su edad; una orientación profesional temprana puede ser decisiva.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section wrap" id="veterinario" aria-labelledby="vet-title">
+      <div class="urgent">
+        <div>
+          <p class="eyebrow" style="color:#ffb59f">Señales para actuar</p>
+          <h2 id="vet-title">Hay síntomas que no deben esperar</h2>
+          <p>Ante una duda, llama a tu clínica veterinaria. Los gatitos pueden empeorar con rapidez.</p>
+        </div>
+        <ul class="red-flags">
+          <li>Dificultad para respirar o respiración muy extraña</li>
+          <li>No quiere comer, está muy débil o cuesta despertarlo</li>
+          <li>Vómitos repetidos o diarrea intensa</li>
+          <li>Se siente frío, tiembla o no logra mantenerse en pie</li>
+          <li>Encías muy pálidas, azuladas o amarillas</li>
+          <li>Secreción abundante en ojos o nariz</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section wrap" id="preguntas" aria-labelledby="faq-title">
+      <div class="section-heading">
+        <p class="eyebrow">Respuestas rápidas</p>
+        <h2 id="faq-title">Preguntas frecuentes</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>¿Cuándo puede separarse de su madre?</summary>
+          <p>Siempre que sea posible, espera al menos hasta las 8 semanas; permanecer con la madre y la camada más tiempo, alrededor de 12 semanas, también puede favorecer su aprendizaje. Si la separación es necesaria por salud o seguridad, consulta a un veterinario o refugio.</p>
+        </details>
+        <details>
+          <summary>¿Cuándo debe empezar con las vacunas?</summary>
+          <p>El calendario depende de su edad, salud y entorno. El veterinario suele planificar las primeras vacunas durante las primeras semanas de vida y las dosis de refuerzo; no retrases la consulta por esperar a una fecha exacta.</p>
+        </details>
+        <details>
+          <summary>¿Puede tomar leche común si tiene hambre?</summary>
+          <p>No. La leche de vaca puede causarle problemas digestivos y no tiene la nutrición adecuada. Para un gatito que no puede mamar, usa solo un sustituto de leche para gatitos indicado por un profesional.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p><strong>Pequeñas Patitas</strong> · Una vida feliz empieza con buenos cuidados.</p>
+      <p>Esta guía ofrece información general y no sustituye la evaluación ni las indicaciones de un veterinario.</p>
+    </div>
+  </footer>
+</body>
+</html>
