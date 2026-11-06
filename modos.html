@@ -156,7 +156,23 @@
     .piano-key.in-scale.black { background: linear-gradient(90deg, #755c8c, #49375e); }
     .piano-key:active, .piano-key.is-playing { filter: brightness(.84); }
     .lab-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 12px; }
-    .lab-actions .button { margin: 0; border: 0; cursor: pointer; }
+    .lab-actions .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      margin: 0;
+      padding: 10px 16px;
+      border: 1px solid #49393b;
+      border-radius: 999px;
+      background: #49393b;
+      color: white;
+      font: inherit;
+      font-size: .88rem;
+      font-weight: 750;
+      cursor: pointer;
+    }
+    .lab-actions .button:hover { background: #675482; }
     .button.secondary { border: 1px solid #ddd3e8; background: white; color: var(--ink); }
     .button.secondary:hover { background: #f4f0f8; }
     .degree-label { display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: .88rem; font-weight: 700; }
@@ -261,8 +277,8 @@
                 <option value="6">VII</option>
               </select>
             </label>
-            <button class="button" id="play-quartal" type="button">Probar acorde cuartal</button>
-            <button class="button secondary" id="play-scale" type="button">Escuchar escala</button>
+            <button class="button" id="play-quartal" type="button">Escuchar acorde cuartal</button>
+            <button class="button secondary" id="play-scale" type="button">Escuchar escala nota por nota</button>
           </div>
           <p class="chord-result" id="chord-result" aria-live="polite"></p>
           <p class="audio-status" id="audio-status" aria-live="polite">El audio comienza al pulsar una tecla o un botón.</p>

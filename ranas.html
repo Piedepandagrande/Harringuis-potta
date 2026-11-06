@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eff7e9">
+  <meta name="description" content="Conoce algunas ranas colombianas y explora una escala musical nota por nota con sus imágenes.">
+  <title>Ranas de Colombia | Pequeñas Patitas</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #263b31;
+      --muted: #64746a;
+      --leaf: #5b8257;
+      --deep: #294d3a;
+      --cream: #f7faef;
+      --paper: #fffefa;
+      --line: #dce8d7;
+      font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--cream); color: var(--ink); line-height: 1.65; }
+    a { color: inherit; }
+    .wrap { width: min(1120px, calc(100% - 36px)); margin-inline: auto; }
+    .topbar { padding: 18px 0; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; text-decoration: none; }
+    .brand-mark { display: grid; width: 40px; height: 40px; place-items: center; border-radius: 14px; background: #dcebd3; font-size: 1.3rem; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; letter-spacing: -.045em; line-height: 1.1; }
+    h1 { margin: 22px 0 12px; font-size: clamp(2.6rem, 6vw, 4.4rem); }
+    h2 { font-size: clamp(2rem, 4vw, 3rem); }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      align-items: center;
+      gap: 32px;
+      margin-top: 18px;
+      padding: clamp(24px, 5vw, 56px);
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: linear-gradient(125deg, #eaf3df, #f8f6df);
+    }
+    .eyebrow { margin-bottom: 10px; color: var(--leaf); font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .hero p:not(.eyebrow) { max-width: 610px; color: var(--muted); }
+    .frog-stage { display: grid; min-height: 220px; place-items: center; }
+    .frog-illustration { font-size: clamp(7rem, 18vw, 11rem); filter: drop-shadow(0 15px 8px rgba(37,76,45,.18)); animation: frog-bounce 2.2s ease-in-out infinite; }
+    @keyframes frog-bounce {
+      0%, 74%, 100% { transform: translateY(0) rotate(0); }
+      81% { transform: translateY(-18px) rotate(-5deg); }
+      90% { transform: translateY(0) rotate(5deg); }
+    }
+    .section { padding: 56px 0; }
+    .section-heading { max-width: 760px; margin: 0 auto 30px; text-align: center; }
+    .section-heading p:last-child { color: var(--muted); }
+    .frog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .frog-card { overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: var(--paper); box-shadow: 0 10px 28px rgba(39,70,44,.06); }
+    .frog-button {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: #dcebd3;
+      cursor: pointer;
+    }
+    .frog-button img { display: block; width: 100%; height: 250px; object-fit: cover; transition: transform .35s; }
+    .frog-button:hover img, .frog-button:focus-visible img { transform: scale(1.035); }
+    .frog-button.croaking img { filter: brightness(1.13) saturate(1.15); transform: scale(.98); }
+    .frog-button .tap-hint {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(25, 55, 39, .87);
+      color: white;
+      font-size: .76rem;
+      font-weight: 750;
+    }
+    .frog-copy { padding: 20px 22px 22px; }
+    .frog-copy h3 { margin-bottom: 5px; font-size: 1.13rem; }
+    .scientific { margin-bottom: 11px; color: var(--leaf); font-family: Georgia, "Times New Roman", serif; font-style: italic; }
+    .frog-copy p { margin-bottom: 10px; color: var(--muted); font-size: .91rem; }
+    .frog-copy p:last-child { margin-bottom: 0; }
+    .photo-credit { font-size: .76rem !important; }
+    .photo-credit a { color: #426b4c; }
+    .player {
+      margin-top: 36px;
+      padding: clamp(22px, 4vw, 38px);
+      border-radius: 26px;
+      background: var(--deep);
+      color: white;
+    }
+    .player h2 { margin-bottom: 9px; font-size: clamp(1.8rem, 4vw, 2.45rem); }
+    .player > p { max-width: 760px; color: #e0eadf; }
+    .scale-notes { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0; }
+    .note-chip { padding: 6px 10px; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; color: #e7f2e3; font-size: .82rem; }
+    .note-chip.current { background: #fff; color: var(--deep); font-weight: 800; }
+    .player-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+    .player-actions button {
+      min-height: 44px;
+      padding: 10px 15px;
+      border: 1px solid #fff;
+      border-radius: 999px;
+      background: white;
+      color: var(--deep);
+      font: inherit;
+      font-size: .88rem;
+      font-weight: 750;
+      cursor: pointer;
+    }
+    .player-actions button.secondary { border-color: rgba(255,255,255,.5); background: transparent; color: white; }
+    .player-status { min-height: 24px; margin: 14px 0 0; color: #e0eadf; font-size: .9rem; }
+    .notice { margin-top: 18px; padding: 15px 18px; border: 1px solid #eadcae; border-radius: 14px; background: #fff8df; color: #695b31; font-size: .88rem; }
+    footer { padding: 28px 0 38px; color: var(--muted); text-align: center; font-size: .85rem; }
+    :focus-visible { outline: 3px solid #b0d98f; outline-offset: 3px; }
+    @media (max-width: 720px) {
+      .hero { grid-template-columns: 1fr; gap: 0; }
+      .frog-stage { min-height: 165px; }
+      .frog-grid { grid-template-columns: 1fr; }
+      .frog-button img { height: 230px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar wrap">
+    <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">🐾</span>Volver a Pequeñas Patitas</a>
+  </header>
+  <main>
+    <section class="hero wrap" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Anfibios de Colombia</p>
+        <h1 id="page-title">Un país que canta entre hojas y ríos</h1>
+        <p>Colombia alberga una gran diversidad de anfibios: desde diminutas ranas dardo de colores vivos hasta ranas arlequín de montaña. Explora estas especies y toca sus imágenes para avanzar, nota por nota, por una escala musical.</p>
+      </div>
+      <div class="frog-stage" aria-hidden="true"><span class="frog-illustration">🐸</span></div>
+    </section>
+
+    <section class="section wrap" aria-labelledby="species-title">
+      <div class="section-heading">
+        <p class="eyebrow">Conoce algunas especies</p>
+        <h2 id="species-title">Ranas colombianas, cada una con su propio mundo</h2>
+        <p>Las fotografías se enlazan a Wikimedia Commons, donde puedes consultar sus autores y licencias.</p>
+      </div>
+      <div class="frog-grid">
+        <article class="frog-card">
+          <button class="frog-button" type="button" data-frog="0" aria-label="Oír la siguiente nota con la rana dorada">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Schrecklicherpfeilgiftfrosch-01.jpg" alt="Rana dardo dorada, Phyllobates terribilis, de color amarillo brillante" loading="lazy">
+            <span class="tap-hint">Toca para croar ♪</span>
+          </button>
+          <div class="frog-copy">
+            <h3>Rana dardo dorada</h3>
+            <p class="scientific">Phyllobates terribilis</p>
+            <p>Endémica de los bosques húmedos del Pacífico colombiano. Su coloración intensa advierte a posibles depredadores; no debe tocarse ni capturarse.</p>
+            <p class="photo-credit">Foto: Wilfried Berns · <a href="https://commons.wikimedia.org/wiki/File:Schrecklicherpfeilgiftfrosch-01.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons, CC BY-SA 2.0 DE</a>.</p>
+          </div>
+        </article>
+        <article class="frog-card">
+          <button class="frog-button" type="button" data-frog="1" aria-label="Oír la siguiente nota con la rana de Lehmann">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Oophaga_lehmanni_27154022_%28cropped%29.jpg" alt="Rana venenosa de Lehmann, Oophaga lehmanni, con bandas rojas oscuras" loading="lazy">
+            <span class="tap-hint">Toca para croar ♪</span>
+          </button>
+          <div class="frog-copy">
+            <h3>Rana venenosa de Lehmann</h3>
+            <p class="scientific">Oophaga lehmanni</p>
+            <p>Rana dardo endémica del occidente de Colombia. Sus bandas llamativas contrastan con el cuerpo oscuro; su distribución natural es reducida y depende de bosques húmedos.</p>
+            <p class="photo-credit">Foto: Roger Franco Molina · <a href="https://commons.wikimedia.org/wiki/File:Oophaga_lehmanni_27154022_(cropped).jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons, CC BY 4.0</a>.</p>
+          </div>
+        </article>
+        <article class="frog-card">
+          <button class="frog-button" type="button" data-frog="2" aria-label="Oír la siguiente nota con la rana arlequín de San Lorenzo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Atelopus_laetissimus.jpg" alt="Rana arlequín de San Lorenzo, Atelopus laetissimus" loading="lazy">
+            <span class="tap-hint">Toca para croar ♪</span>
+          </button>
+          <div class="frog-copy">
+            <h3>Rana arlequín de San Lorenzo</h3>
+            <p class="scientific">Atelopus laetissimus</p>
+            <p>Especie endémica de la Sierra Nevada de Santa Marta, en el norte de Colombia. Las ranas arlequín están muy ligadas a quebradas y bosques de montaña.</p>
+            <p class="photo-credit">Foto: Giovanni Alberto Chaves Portilla · <a href="https://commons.wikimedia.org/wiki/File:Atelopus_laetissimus.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons, CC BY-SA 2.5</a>.</p>
+          </div>
+        </article>
+        <article class="frog-card">
+          <button class="frog-button" type="button" data-frog="3" aria-label="Oír la siguiente nota con la rana venenosa de Doris">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e8/Ranitomeya_dorisswansonae01.jpg" alt="Rana venenosa de Doris, Andinobates dorisswansonae, fotografiada entre hojas" loading="lazy">
+            <span class="tap-hint">Toca para croar ♪</span>
+          </button>
+          <div class="frog-copy">
+            <h3>Rana venenosa de Doris</h3>
+            <p class="scientific">Andinobates dorisswansonae</p>
+            <p>Pequeña rana dardo endémica de Colombia. Como otras ranas de su grupo, sus patrones y colores son una señal llamativa en el sotobosque tropical.</p>
+            <p class="photo-credit">Foto: Mauricio Rivera Correa · <a href="https://commons.wikimedia.org/wiki/File:Ranitomeya_dorisswansonae01.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons, CC BY-SA 2.5</a>.</p>
+          </div>
+        </article>
+      </div>
+      <aside class="notice"><strong>Observa sin intervenir:</strong> los anfibios tienen piel delicada. No manipules ni traslades ranas silvestres; admíralas desde lejos y respeta su hábitat.</aside>
+    </section>
+
+    <section class="section wrap" aria-labelledby="music-title">
+      <div class="player">
+        <p class="eyebrow" style="color:#c8e5b7">Un pequeño coro afinado</p>
+        <h2 id="music-title">Escala Mixolidia ♭9 ♭13</h2>
+        <p>Al presionar cualquiera de las fotos, la rana croa la siguiente nota de la escala. Cada clic reproduce una sola nota; al llegar a la última, el siguiente clic vuelve al inicio.</p>
+        <div class="scale-notes" id="scale-notes" aria-label="Notas de la escala"></div>
+        <div class="player-actions">
+          <button id="play-full-scale" type="button">Escuchar escala completa, nota por nota</button>
+          <button id="reset-scale" class="secondary" type="button">Volver a la primera nota</button>
+        </div>
+        <p class="player-status" id="player-status" aria-live="polite">Siguiente: Do4. Pulsa una foto de rana para escucharla.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap">
+    <p>Las fotos son de Wikimedia Commons; abre sus enlaces para consultar atribución y licencia.</p>
+    <p><a href="index.html">Inicio</a> · <a href="modos.html">Teoría musical</a></p>
+  </footer>
+  <script>
+    (() => {
+      const notes = [
+        { name: "Do4", midi: 60 },
+        { name: "Re♭4", midi: 61 },
+        { name: "Mi4", midi: 64 },
+        { name: "Fa4", midi: 65 },
+        { name: "Sol4", midi: 67 },
+        { name: "La♭4", midi: 68 },
+        { name: "Si♭4", midi: 70 }
+      ];
+      const status = document.getElementById("player-status");
+      const chips = document.getElementById("scale-notes");
+      const frogButtons = Array.from(document.querySelectorAll(".frog-button"));
+      let noteIndex = 0;
+      let audioContext;
+
+      notes.forEach((note, index) => {
+        const chip = document.createElement("span");
+        chip.className = "note-chip";
+        chip.textContent = note.name;
+        chip.dataset.noteIndex = String(index);
+        chips.append(chip);
+      });
+
+      function updateSequence() {
+        const nextNote = notes[noteIndex];
+        status.textContent = `Siguiente: ${nextNote.name}. Pulsa una foto de rana para escucharla.`;
+        chips.querySelectorAll(".note-chip").forEach((chip, index) => {
+          chip.classList.toggle("current", index === noteIndex);
+        });
+      }
+
+      async function croak(note, duration = 0.32, startTime) {
+        const AudioContextConstructor = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextConstructor) {
+          status.textContent = "Este navegador no ofrece audio compatible.";
+          return;
+        }
+        if (!audioContext) audioContext = new AudioContextConstructor();
+        await audioContext.resume();
+        const start = startTime === undefined ? audioContext.currentTime : startTime;
+        const oscillator = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        oscillator.type = "triangle";
+        oscillator.frequency.setValueAtTime(440 * (2 ** ((note.midi - 69) / 12)), start);
+        gain.gain.setValueAtTime(0.0001, start);
+        gain.gain.exponentialRampToValueAtTime(0.22, start + 0.025);
+        gain.gain.exponentialRampToValueAtTime(0.08, start + 0.12);
+        gain.gain.exponentialRampToValueAtTime(0.2, start + 0.15);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+        oscillator.connect(gain);
+        gain.connect(audioContext.destination);
+        oscillator.start(start);
+        oscillator.stop(start + duration + 0.02);
+      }
+
+      function playNextNote(button) {
+        const currentIndex = noteIndex;
+        const note = notes[currentIndex];
+        frogButtons.forEach((frog) => frog.classList.remove("croaking"));
+        button.classList.add("croaking");
+        window.setTimeout(() => button.classList.remove("croaking"), 360);
+        croak(note).then(() => {
+          status.textContent = `Croac afinado: ${note.name} (${currentIndex + 1} de ${notes.length}).`;
+          noteIndex = (currentIndex + 1) % notes.length;
+          updateSequence();
+          status.textContent = `Sonó ${note.name} (${currentIndex + 1} de ${notes.length}). ${noteIndex === 0 ? "La próxima empieza otra vez en Do4." : `Siguiente: ${notes[noteIndex].name}.`}`;
+        }).catch(() => {
+          status.textContent = "No se pudo iniciar el audio. Comprueba los permisos de sonido del navegador.";
+        });
+      }
+
+      frogButtons.forEach((button) => button.addEventListener("click", () => playNextNote(button)));
+      document.getElementById("reset-scale").addEventListener("click", () => {
+        noteIndex = 0;
+        updateSequence();
+      });
+      document.getElementById("play-full-scale").addEventListener("click", async () => {
+        const AudioContextConstructor = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextConstructor) {
+          status.textContent = "Este navegador no ofrece audio compatible.";
+          return;
+        }
+        if (!audioContext) audioContext = new AudioContextConstructor();
+        try {
+          await audioContext.resume();
+          const start = audioContext.currentTime;
+          await Promise.all(notes.map((note, index) => croak(note, 0.3, start + index * 0.38)));
+          noteIndex = 0;
+          updateSequence();
+          status.textContent = "Suena la escala completa, una nota por vez.";
+        } catch {
+          status.textContent = "No se pudo iniciar el audio. Comprueba los permisos de sonido del navegador.";
+        }
+      });
+
+      updateSequence();
+    })();
+  </script>
+</body>
+</html>
